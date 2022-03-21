@@ -11,7 +11,7 @@ gcloud components update
 #export PROJECT_ID1=$(gcloud config get-value project)
 #gcloud config set project $PROJECT_ID1
 
-export PROJECT_ID1='ikeademo1'
+export PROJECT_ID1='ikeademo1-sb1'
 echo $PROJECT_ID1
 
 gcloud config set project $PROJECT_ID1
@@ -28,6 +28,9 @@ echo $PROJECT_ID2
 export SOURCE='cleveron'
 export FILES_SOURCE=${PROJECT_ID2}-${SOURCE}-files-source-$(date +%s)
 
+## ------------- test -------------
+gsutil mb -c regional -l ${REGION} gs://${FILES_SOURCE}
+
 echo $FILES_SOURCE
 #export FILES_SOURCE=${SOURCE_SYSTEM}-${PROJECT_ID}-files-source-$(date +%s)
 
@@ -35,9 +38,6 @@ TOPIC_ID=${SOURCE_SYSTEM}-${APP_NAME}
 echo $TOPIC_ID
 
 export AE_REGION=us-central1
-
-# Create a Cloud Storage bucket owned by DSM  project
-gsutil mb gs://$FILES_SOURCE
 
 ##Create a Pub/Sub topic in project 1
 #gcloud pubsub topics create $TOPIC_ID
